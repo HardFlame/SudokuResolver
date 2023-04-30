@@ -990,7 +990,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 			})
 			return { Parrent, Child }
 		},
-		whoInput: function (Parrent, Child) {
+		whoInput: function (/*Parrent,*/ Child) {
 			/*let Cell = document.querySelectorAll([BigSuRow=`${Parrent.BigRow}`]).querySelectorAll([BigSuCol=`${Parrent.BigCol}`])
 			let resulChild = Cell.querySelectorAll([SuRow=`${Child.Row}`]).querySelectorAll([SuCol=`${Child.Col}`])
 			return resulChild*/ //не работает https://stackoverflow.com/questions/2694640/find-an-element-in-dom-based-on-an-attribute-value
@@ -1010,8 +1010,9 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 		excludeMissings: function (Cell, value) {
 			Cell.Missings = Cell.Missings.filter((el) => { return el != value })
 		},
-		edit: function () {
-
+		edit: function (smallCell,value) {
+			smallCell.Value = value
+			smallCell.input.value = value
 		},
 		getRowandCol: function () {
 			let Boardcount = this.Board.length //Формула для квадратной доски, нужно переписать для неклассических судоку
@@ -1067,7 +1068,9 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 						if (this.resolvers.Way2()) {
 							succes++
 						}
-						this.resolvers.Way3(BigCell, count, i)
+						if (this.resolvers.Way3(BigCell)) {
+							
+						}
 						break;
 				}
 			}
@@ -1078,7 +1081,8 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				let Sudoku = this.parent
 				for (let k = 0; k < BigCell.Childs.length; k++) {
 					if (BigCell.Childs[k].Value < 1) {
-						Sudoku.whoInput(BigCell, BigCell.Childs[k]).value = BigCell.Missings[0] //Теперь в малой ячейке есть свойство с инпутом, можно переписать этот вызов метода
+						Sudoku.edit(BigCell.Childs[k],BigCell.Missings[0]) //Новый способ
+						//Sudoku.whoInput(BigCell.Childs[k]).value = BigCell.Missings[0] //Устарел, заменён
 					}
 				}
 			},
@@ -1089,7 +1093,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 					let count = lines.length
 					for (let i = 0; i < count; i++) {
 						let Missings = [0,1,2,3,4,5,6,7,8,9]
-						let isAloneZero = lines[i].filter(function (el,k) { //Получаем список пустых ячеек
+						let isAloneZero = lines[i].filter(function (el) { //Получаем список пустых ячеек
 							Missings = Missings.filter(function (item) {return item != el.Value}); //Убираем все числа, которые были в линии
 							return el.Value == 0})
 						if (isAloneZero.length == 1) { // Если пустая ячейка только одна, то присваеваем ей единственное отсутствующее число
@@ -1110,8 +1114,8 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				//console.log(Rows) //отладочный
 				return succes
 			},
-			Way3: function (BigCell, count, iter) {
-				//проверка если в строке/колонне только один отсутствущий элемент
+			Way3: function (BigCell) { //проверка каждой ячейки на возможные числа
+				
 			},
 			Way4: function () {
 
