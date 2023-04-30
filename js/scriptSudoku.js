@@ -1013,6 +1013,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 		edit: function (smallCell,value) {
 			smallCell.Value = value
 			smallCell.input.value = value
+			this.excludeMissings(smallCell.parent,value)
 		},
 		getRowandCol: function () {
 			let Boardcount = this.Board.length //Формула для квадратной доски, нужно переписать для неклассических судоку
@@ -1115,7 +1116,26 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				return succes
 			},
 			Way3: function (BigCell) { //проверка каждой ячейки на возможные числа
-				
+				let succes = false
+				let Sudoku = this.parent
+				let RC = Sudoku.getRowandCol()
+				let smallCells = BigCell.Childs.filter(function (el) {return el.Value == 0})
+				let count = smallCells.length
+				for (let i = 0; i < count; i++) {
+					let smallCell = smallCells[i]
+					let hitch = []
+					hitch = RC.Rows[smallCell.globalRow-1].concat(RC.Cols[smallCell.globalCol-1])
+					hitch = Array.from(new Set(hitch.map((el) => el.Value)))
+					hitch = hitch.filter((el) => el != 0)
+					//console.log(hitch) //отладочный
+					smallCell.PossibleValues = BigCell.Missings.filter(n => !hitch.includes(n))
+					if (smallCell.PossibleValues.length == 1) {
+						Sudoku.edit(smallCell,smallCell.PossibleValues)
+						succes = true
+					}
+				}
+				//console.log(smallCells)
+				return succes
 			},
 			Way4: function () {
 
@@ -1233,7 +1253,7 @@ function sudokuButtonResolve(SudokuBoard, Sudoku) {
 			//console.log(Cell.Child,input.value) // отладочный
 		}
 	}
-	//console.log(Sudoku.Board)
 	console.log(Sudoku.resolve())
+	console.log(Sudoku.Board)
 	//Sudoku.getRowandCol()
 }
