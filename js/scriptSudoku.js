@@ -938,7 +938,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				 ]
 			}
 	  ],
-		init: function (ColRow) {
+		init: function (ColRow) {//закоментирован на время использования тестовой доски
 			// console.log(ColRow*ColRow) отладочный
 			/*for (let i = 1; i < ColRow+1; i++) {
 				for (let k = 1; k < ColRow+1; k++) {
@@ -1087,7 +1087,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 			},
 			Way2: function (BigCell,count,iter) {
 				let Sudoku = this.parent //this переопределяется в методе filter, кэширую доску
-				for (let k = 0; k < BigCell.Childs.length; k++) {
+				/*for (let k = 0; k < BigCell.Childs.length; k++) {
 					if (BigCell.Childs[k].Value < 1) {
 						for (let m = 0; m < count; m++) { //Проходим Missings и проверяем есть ли помехи
 							let bigCellOnRow = Sudoku.Board.filter(function (el) { return el.BigRow == Sudoku.Board[iter].BigRow })
@@ -1121,12 +1121,10 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 
 							//console.log(bigCellOnRow,smallCellOnRow,k)
 
-							/*if (BigCell.Missings[m]) {
-
-							}*/
+							//if (BigCell.Missings[m]) {	}
 						}
 					}
-				}
+				}*/
 			},
 			Way3: function () {
 				//проверка если в строке/колонне только один отсутствущий элемент
