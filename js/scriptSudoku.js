@@ -23,10 +23,924 @@ function init() { //Ищем блок для размешения игры и с
 
 function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем стартовую доску клетками
 	const Sudoku = {
-		Board: [],
+		Board: [
+			{
+				 "BigRow": 1,
+				 "BigCol": 1,
+				 "Missings": [
+					  4
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 5,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 1,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 1,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 3,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 1,
+							"globalCol": 3,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 1,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 2,
+							"globalCol": 3,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 2,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 3,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 1,
+				 "BigCol": 2,
+				 "Missings": [
+					  1,
+					  2,
+					  3,
+					  6
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 1,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 1,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 4,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 1,
+							"globalCol": 6,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 5,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 6,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 3,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 3,
+							"globalCol": 6,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 1,
+				 "BigCol": 3,
+				 "Missings": [
+					  7
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 1,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 1,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 1,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 1,
+							"globalCol": 9,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 2,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 3,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 2,
+							"globalCol": 9,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 4,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 5,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 3,
+							"globalCol": 9,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 2,
+				 "BigCol": 1,
+				 "Missings": [
+					  1,
+					  2,
+					  3,
+					  4,
+					  5,
+					  6,
+					  9
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 4,
+							"globalCol": 3,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 3,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 6,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 6,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 6,
+							"globalCol": 3,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 2,
+				 "BigCol": 2,
+				 "Missings": [
+					  1,
+					  2,
+					  5,
+					  8
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 4,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 6,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 6,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 6,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 3,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 6,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 6,
+							"globalCol": 6,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 2,
+				 "BigCol": 3,
+				 "Missings": [
+					  1,
+					  2,
+					  4,
+					  7,
+					  9
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 5,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 3,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 4,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 4,
+							"globalCol": 9,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 5,
+							"globalCol": 9,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 6,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 6,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 6,
+							"globalCol": 9,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 3,
+				 "BigCol": 1,
+				 "Missings": [
+					  1,
+					  2,
+					  3,
+					  5,
+					  8
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 7,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 7,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 7,
+							"globalCol": 3,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 4,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 3,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 9,
+							"globalCol": 1,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 9,
+							"globalCol": 2,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 9,
+							"globalCol": 3,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 3,
+				 "BigCol": 2,
+				 "Missings": [
+					  2,
+					  3,
+					  4
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 7,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 5,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 7,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 7,
+							"globalCol": 6,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 8,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 8,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 1,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 6,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 9,
+							"globalCol": 4,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 9,
+							"globalCol": 5,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 9,
+							"globalCol": 6,
+							"input": {}
+					  }
+				 ]
+			},
+			{
+				 "BigRow": 3,
+				 "BigCol": 3,
+				 "Missings": [
+					  2
+				 ],
+				 "Childs": [
+					  {
+							"Row": 1,
+							"Col": 1,
+							"Value": 7,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 7,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 2,
+							"Value": 6,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 7,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 1,
+							"Col": 3,
+							"Value": 0,
+							"PossibleValues": [],
+							"Initiable": false,
+							"globalRow": 7,
+							"globalCol": 9,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 1,
+							"Value": 9,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 2,
+							"Value": 5,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 2,
+							"Col": 3,
+							"Value": 8,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 8,
+							"globalCol": 9,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 1,
+							"Value": 3,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 9,
+							"globalCol": 7,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 2,
+							"Value": 1,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 9,
+							"globalCol": 8,
+							"input": {}
+					  },
+					  {
+							"Row": 3,
+							"Col": 3,
+							"Value": 4,
+							"PossibleValues": [],
+							"Initiable": true,
+							"globalRow": 9,
+							"globalCol": 9,
+							"input": {}
+					  }
+				 ]
+			}
+	  ],
 		init: function (ColRow) {
 			// console.log(ColRow*ColRow) отладочный
-			for (let i = 1; i < ColRow+1; i++) {
+			/*for (let i = 1; i < ColRow+1; i++) {
 				for (let k = 1; k < ColRow+1; k++) {
 					let BigCell = { //Большая ячейка 
 						BigRow: i,
@@ -45,7 +959,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 								Initiable: false, //true значение указано при инициализации, false при решении
 								globalRow: ((i-1)*ColRow+1)+(m-1),  //не готово
 								globalCol: ((k-1)*ColRow+1)+(n-1),	//не готово 
-								parrent: BigCell, //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
+								//parrent: BigCell, //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
 								input: ''
 								//i = строка большой ячейки
 								//k = столбец большой ячейки
@@ -63,8 +977,8 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 					
 				}
 				
-			}
-			console.log(this.Board)
+			}*/
+			//console.log(this.Board)
 			this.resolvers.parent = this //Передаём resolvers родительский объект https://stackoverflow.com/questions/2980763/javascript-objects-get-parent
 		},
 		whoCell: function (input) {
@@ -128,7 +1042,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 					//res.Rows[i].push
 				}
 			}
-			//!console.log(res.Rows)
+			console.log(res.Rows)
 			/*for (let i = 0; i < count; i++) { //3 большие
 				for (let k = 0; k < count; k++) {
 					for (let m = 0; m < count; m++) {
@@ -322,18 +1236,18 @@ function sudokuButtonResolve(SudokuBoard, Sudoku) {
 	for (let i = 0; i < inputs.length; i++) {
 		let input = inputs[i]
 		input.setAttribute('readonly', '')
-		 //(уже убран) Можно перемести внуть if как только свойство родителей будет исполнятся в самом объекте ('Даём детям знать кто их родители')
-		//Cell.Child.parent = Cell.Parrent //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
+		let Cell = Sudoku.whoCell(input) // Можно перемести внуть if как только свойство родителей будет исполнятся в самом объекте ('Даём детям знать кто их родители')
+		Cell.Child.parent = Cell.Parrent //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
 		//console.log()
 		if (input.value > 0) {
-			let Cell = Sudoku.whoCell(input)
+			
 			Sudoku.excludeMissings(Cell.Parrent, input.value)
 			Cell.Child.Initiable = true
 			Cell.Child.Value = +input.value
 			//console.log(Cell.Child,input.value) // отладочный
 		}
 	}
-	//console.log(Sudoku.Board)
-	//Sudoku.resolve()
-	Sudoku.getRowandCol()
+	console.log(Sudoku.Board)
+	Sudoku.resolve()
+	//Sudoku.getRowandCol()
 }
