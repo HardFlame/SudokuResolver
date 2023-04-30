@@ -26,15 +26,15 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 		Board: [],
 		init: function (ColRow) {
 			// console.log(ColRow*ColRow) отладочный
-			let whycount = 0
 			for (let i = 1; i < ColRow+1; i++) {
 				for (let k = 1; k < ColRow+1; k++) {
 					let BigCell = { //Большая ячейка 
 						BigRow: i,
 						BigCol: k,
-						Missings: [1,2,3,4,5,6,7,8,9],
+						Missings: [],
 						Childs: [],
 					};
+					let whycount = 0 //Подсчёт ячеек
 					for (let m = 1; m < ColRow+1; m++) {
 						for (let n = 1; n < ColRow+1; n++) { //Маленькая ячейка
 							BigCell.Childs.push({
@@ -43,18 +43,28 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 								Value: 0,
 								PossibleValues: [],
 								Initiable: false, //true значение указано при инициализации, false при решении
-								globalRow: i*k*m*n,  //не готово
-								globalCol: i*k*m*n,	//не готово
-								parrent: BigCell //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
+								globalRow: ((i-1)*ColRow+1)+(m-1),  //не готово
+								globalCol: ((k-1)*ColRow+1)+(n-1),	//не готово 
+								parrent: BigCell, //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
+								input: ''
+								//i = строка большой ячейки
+								//k = столбец большой ячейки
+								//m = строка в ячейке
+								//n = столбец в ячейке
 							})
 							whycount++
+							BigCell.Missings.push(whycount) //Колличество ячеек это количество чисел, которых в не хватает
+							//console.log('i=',i,'k=',k,'m=',m,'n=',n)
 							//console.log(whycount)
-							console.log(BigCell.Childs)
+							
 						}
 					}
 					this.Board.push(BigCell)
+					
 				}
+				
 			}
+			console.log(this.Board)
 			this.resolvers.parent = this //Передаём resolvers родительский объект https://stackoverflow.com/questions/2980763/javascript-objects-get-parent
 		},
 		whoCell: function (input) {
