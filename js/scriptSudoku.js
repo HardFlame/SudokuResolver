@@ -1326,7 +1326,7 @@ function sudokuButtonResolve(SudokuBoard, Sudoku) {
 	}
 	setTimeout(repeat,0)
 	/*let result = Sudoku.resolve() //Ручное решение
-	//?Все циклы останавливаются без решение с 'Failed' на четвёртом цикле, хотя вручную решается за 2 запуска.
 	console.log(result)*/
+	//?Все циклы останавливаются без решения с 'Failed' на четвёртом цикле, хотя вручную решается за 2 запуска.
 	//Sudoku.getRowandCol()
 }
