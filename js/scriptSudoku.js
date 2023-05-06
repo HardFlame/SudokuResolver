@@ -938,6 +938,41 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				]
 			}
 		],
+		PresentsAs: {
+			RowandCol: {//Представлен как линии
+				//Нужно дописать
+				Rows: new Array(ColRow*ColRow),
+				Cols: new Array(ColRow*ColRow)
+			},
+			//Представлен как...,
+			//Представлен как...,]
+			initPresent: function () {
+				try {
+					let Sudoku = this.parent
+					let Boardcount = Sudoku.Board.length //Формула для квадратной доски, нужно переписать для неклассических судоку
+					//SudokuBoard
+					let res = {
+						Rows: [[], [], [], [], [], [], [], [], []],
+						Cols: [[], [], [], [], [], [], [], [], []] //Нужно написать автоматическое создание. Простой push вместо с циклом не подходит т.к. цикл только делает обход, а фактическое обращение может быть к любому элементы
+					}
+					for (let i = 0; i < Boardcount; i++) {
+						let Childcount = Sudoku.Board[i].Childs.length
+
+						for (let k = 0; k < Childcount; k++) {
+							let row = (Sudoku.Board[i].Childs[k].globalRow - 1)
+							let col = (Sudoku.Board[i].Childs[k].globalCol - 1)
+							//console.log(row) //отладочный
+							res.Rows[row].splice(col, 1, Sudoku.Board[i].Childs[k])
+							res.Cols[col].splice(row, 1, Sudoku.Board[i].Childs[k])
+						}
+					}
+					//console.log(res) //отладочный
+					this.RowandCol = res
+				} catch (error) {
+					console.log('initPresent error',error)
+				}
+			}
+		},
 		init: function (ColRow) {//закоментирован на время использования тестовой доски
 			// console.log(ColRow*ColRow) отладочный
 			/*for (let i = 1; i < ColRow+1; i++) {
@@ -980,6 +1015,9 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 			}*/
 			//console.log(this.Board)
 			this.resolvers.parent = this //Передаём resolvers родительский объект https://stackoverflow.com/questions/2980763/javascript-objects-get-parent
+			this.PresentsAs.parent = this
+			this.PresentsAs.initPresent()
+			console.log(this.PresentsAs.RowandCol)
 		},
 		whoCell: function (input) {
 			let Parrent = this.Board.find(function (el) {
@@ -1014,40 +1052,9 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 			smallCell.Value = value
 			smallCell.input.value = value
 			this.excludeMissings(smallCell.parent,value)
+			return true
 		},
-		getRowandCol: function () {
-			let Boardcount = this.Board.length //Формула для квадратной доски, нужно переписать для неклассических судоку
-			let res = {
-				Rows: [[], [], [], [], [], [], [], [], []],
-				Cols: [[], [], [], [], [], [], [], [], []] //Нужно написать автоматическое создание. Простой push вместо с циклом не подходит т.к. цикл только делает обход, а фактическое обращение может быть к любому элементы
-			}
-			for (let i = 0; i < Boardcount; i++) {
-				let Childcount = this.Board[i].Childs.length
-				/*res.Rows.push([])
-				res.Cols.push([])*/
-				for (let k = 0; k < Childcount; k++) {
-					let row = (this.Board[i].Childs[k].globalRow - 1)
-					let col = (this.Board[i].Childs[k].globalCol - 1)
-					//console.log(row) //отладочный
-					res.Rows[row].splice(col, 1, this.Board[i].Childs[k])
-					res.Cols[col].splice(row, 1, this.Board[i].Childs[k])
-				}
-			}
-			//console.log(res) //отладочный
-			return res
-			/*for (let i = 0; i < count; i++) { //3 большие
-				for (let k = 0; k < count; k++) {
-					for (let m = 0; m < count; m++) {
-						for (let n = 0; n < count; n++) {
-
-							
-						}
-						
-					}
-					
-				}
-			}*/
-		},
+		getRowandCol: '',
 		resolve: function () {
 			let succes = 0
 			let resolved = 0
@@ -1058,37 +1065,41 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				switch (count) {
 					case 0: //Если в Missings ничего нет, то всё можно пропустить
 						resolved++
+						//console.log('0') //отладочный
 						break;
 
 					case 1: //Если в Missings только одно число, то ставит его в свободную ячейку
-						this.resolvers.Way1(BigCell)
-						succes++
+						succes = succes + this.resolvers.Way1(BigCell)
+						//console.log('1') //отладочный
 						break;
 
 					default: //Если в Missings ещё полно значений, то нужно решать
-						if (this.resolvers.Way2()) {
-							succes++
-						}
-						if (this.resolvers.Way3(BigCell)) {
-							
-						}
+							//let way = this.resolvers.Way2()
+							succes = succes + this.resolvers.Way2()
+							//console.log('2') //отладочный
+							succes = succes + this.resolvers.Way3(BigCell)
+							//console.log(way)
+							//console.log('3') //отладочный
 						break;
 				}
 			}
+
 			return { succes, resolved }
 		},
 		resolvers: {
 			Way1: function (BigCell) { //Проставляет единственный Miss блока в свободную ячейку
+				let succes = 0
 				let Sudoku = this.parent
 				for (let k = 0; k < BigCell.Childs.length; k++) {
 					if (BigCell.Childs[k].Value < 1) {
-						Sudoku.edit(BigCell.Childs[k],BigCell.Missings[0]) //Новый способ
+						if (Sudoku.edit(BigCell.Childs[k],BigCell.Missings[0])) {succes++} //Новый способ
 						//Sudoku.whoInput(BigCell.Childs[k]).value = BigCell.Missings[0] //Устарел, заменён
 					}
 				}
+				return succes
 			},
 			Way2: function () { //Проходит линии и проставляет числа, если в линии только одно место
-				let succes = false
+				let succes = 0
 				let checkLine = function (lines) {
 					let succes = false
 					let count = lines.length
@@ -1099,15 +1110,16 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 							return el.Value == 0})
 						if (isAloneZero.length == 1) { // Если пустая ячейка только одна, то присваеваем ей единственное отсутствующее число
 							//console.log(isAloneZero[0].Value,Missings[0]) //отладочный
-							isAloneZero[0].Value = Missings[0]
-							isAloneZero[0].input.value = Missings[0]
-							succes = true
+							if (Sudoku.edit(isAloneZero[0],Missings[0])) {succes++}
+							/*isAloneZero[0].Value = Missings[0]
+							isAloneZero[0].input.value = Missings[0]*/
+
 						}
 					}
 					return succes //Была ли решена хоть одна линия
 				}
 				let Sudoku = this.parent //this переопределяется в методе filter, кэширую доску
-				let RC = Sudoku.getRowandCol()
+				let RC = Sudoku.PresentsAs.RowandCol
 				let Rows = RC.Rows
 				let Cols = RC.Cols
 				succes = (checkLine(Rows) || checkLine(Cols))
@@ -1116,9 +1128,9 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				return succes
 			},
 			Way3: function (BigCell) { //проверка каждой ячейки на возможные числа
-				let succes = false
+				let succes = 0
 				let Sudoku = this.parent
-				let RC = Sudoku.getRowandCol()
+				let RC = Sudoku.PresentsAs.RowandCol
 				let smallCells = BigCell.Childs.filter(function (el) {return el.Value == 0})
 				let count = smallCells.length
 				for (let i = 0; i < count; i++) {
@@ -1130,8 +1142,7 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 					//console.log(hitch) //отладочный
 					smallCell.PossibleValues = BigCell.Missings.filter(n => !hitch.includes(n))
 					if (smallCell.PossibleValues.length == 1) {
-						Sudoku.edit(smallCell,smallCell.PossibleValues)
-						succes = true
+						if (Sudoku.edit(smallCell,smallCell.PossibleValues)) {succes++}
 					}
 				}
 				//console.log(smallCells)
@@ -1253,7 +1264,69 @@ function sudokuButtonResolve(SudokuBoard, Sudoku) {
 			//console.log(Cell.Child,input.value) // отладочный
 		}
 	}
-	console.log(Sudoku.resolve())
+	//console.log(Sudoku.resolve())
 	console.log(Sudoku.Board)
+	/*let p = new Promise((resolve, reject) => {
+		Sudoku.resolve()
+		resolve()
+	})*/
+	//let repeat = true
+
+	/*do {
+		let result = Sudoku.resolve()
+		switch (true) {
+			case (result.resolved == 9):
+				console.log('Resolved')
+				repeat = false
+				return
+				break;
+			case (result.success == 0):
+				console.log('Failed')
+				repeat = false
+				return
+				break;
+			default:
+				console.log('try',result)
+				break;
+		}
+		l++
+	} while (false)*/
+	/*let repeat = () => {
+		let again = Sudoku.resolve()
+		switch (true) {
+			case (again.resolved == 9):
+				console.log('Resolved')
+				repeat = false
+				return
+			case (again.success == 0):
+				console.log('Failed')
+				repeat = false
+				return
+			default:
+				console.log('try',again)
+				setTimeout(repeat,2000)
+				break;
+		}
+	}*/
+	let repeat = () => { //Вариант цикла
+		let result = Sudoku.resolve()
+		let res = result.resolved
+		let suc = result.succes
+		if (res == 9) {
+			console.log('Resolved')
+			return true
+		}
+		if (suc == 0) {
+			console.log('Failed',Sudoku.Board)
+			return false
+		} else {
+			console.log('try',result)
+			setTimeout(repeat,1000)
+		}
+	}
+	setTimeout(repeat,0)
+	/*let result = Sudoku.resolve() //Ручное решение
+	console.log(result)*/
+	//?Все циклы останавливаются без решения с 'Failed' на четвёртом цикле, хотя вручную решается за 2 запуска.
 	//Sudoku.getRowandCol()
 }
