@@ -938,9 +938,18 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 				]
 			}
 		],
-		init: function (ColRow) {//закоментирован на время использования тестовой доски
+		PresentsAs: {
+			ColandRow: {//Представлен как линии
+				Row: new Array(ColRow*ColRow),
+				Col: new Array(ColRow*ColRow),
+				//Нужно дописать
+			},
+			//Представлен как...,
+			//Представлен как...,
+		},
+		init: function (ColRow) {
 			// console.log(ColRow*ColRow) отладочный
-			/*for (let i = 1; i < ColRow+1; i++) {
+			for (let i = 1; i < ColRow+1; i++) {
 				for (let k = 1; k < ColRow+1; k++) {
 					let BigCell = { //Большая ячейка 
 						BigRow: i,
@@ -959,13 +968,17 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 								Initiable: false, //true значение указано при инициализации, false при решении
 								globalRow: ((i-1)*ColRow+1)+(m-1),  //не готово
 								globalCol: ((k-1)*ColRow+1)+(n-1),	//не готово 
-								//parrent: BigCell, //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
-								input: ''
+								parrent: '',//BigCell, //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли //!Обычный вид (parrent: BigCell)
+								input: '',
+								
 								//i = строка большой ячейки
 								//k = столбец большой ячейки
 								//m = строка в ячейке
 								//n = столбец в ячейке
 							})
+							this.Board[((i-1)*ColRow+1)+(k-1)-1].Childs[((m-1)*ColRow+1)+(n-1)-1].parrent = this.Board[((i-1)*ColRow+1)+(k-1)-1] //!Временный способ, вместо (parrent: BigCell)
+							//console.log(((m-1)*ColRow+1)+(n-1)-1)
+							//console.log(this.Board[whycount].Childs[((m-1)*ColRow+1)+(n-1)-1])
 							whycount++
 							BigCell.Missings.push(whycount) //Колличество ячеек это количество чисел, которых в не хватает
 							//console.log('i=',i,'k=',k,'m=',m,'n=',n)
@@ -973,13 +986,46 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 							
 						}
 					}
-					this.Board.push(BigCell)
+					//this.Board.push(BigCell) //закоментирован на время использования тестовой доски
 					
 				}
 				
-			}*/
-			//console.log(this.Board)
+			}
+			Sudoku.Board
 			this.resolvers.parent = this //Передаём resolvers родительский объект https://stackoverflow.com/questions/2980763/javascript-objects-get-parent
+			//!----------------------------------------------------------------------------------------------------------------------------------------------------Переписывается
+				/*let Boardcount = this.Board.length //Формула для квадратной доски, нужно переписать для неклассических судоку
+				let res = {
+					Rows: [[], [], [], [], [], [], [], [], []],
+					Cols: [[], [], [], [], [], [], [], [], []] //Нужно написать автоматическое создание. Простой push вместо с циклом не подходит т.к. цикл только делает обход, а фактическое обращение может быть к любому элементы
+				}
+				for (let i = 0; i < Boardcount; i++) {
+					let Childcount = this.Board[i].Childs.length*/
+					/*res.Rows.push([])
+					res.Cols.push([])*/
+					/*for (let k = 0; k < Childcount; k++) {
+						let row = (this.Board[i].Childs[k].globalRow - 1)
+						let col = (this.Board[i].Childs[k].globalCol - 1)
+						//console.log(row) //отладочный
+						res.Rows[row].splice(col, 1, this.Board[i].Childs[k])
+						res.Cols[col].splice(row, 1, this.Board[i].Childs[k])
+					}
+				}
+				//console.log(res) //отладочный
+				return res*/
+			//!----------------------------------------------------------------------------------------------------------------------------------------------------Переписывается
+			//console.log(this.Board)
+			return this.Board //init возвращает готовую, пустую доску
+		},
+		clearBoard: function () { //Очищает всю доску и её значения
+			this.Board.forEach((el) => {
+				el.Missings = []
+				el.Childs.forEach((item,i) => {
+					item.Value = 0 
+					item.input.value = ''
+					item.PossibleValues=[];
+					el.Missings.push(i+1)})})
+			return this.Board //forEach сам по себе значение не отдаёт, поэтому return отдаёт доску отдельно
 		},
 		whoCell: function (input) {
 			let Parrent = this.Board.find(function (el) {
@@ -1008,14 +1054,22 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 			// можно попробовать при создании инпутов сразу присваивать их свойству соответствующей ячейки объекта
 		},
 		excludeMissings: function (Cell, value) {
-			Cell.Missings = Cell.Missings.filter((el) => { return el != value })
+			//try {
+				Cell.Missings = Cell.Missings.filter((el) => { return el != value })
+			//} catch (error) {
+				//console.log('Sudoku.excludeMissings error',Cell)
+			//}
 		},
 		edit: function (smallCell,value) {
-			smallCell.Value = value
-			smallCell.input.value = value
-			this.excludeMissings(smallCell.parent,value)
+			//try {
+				smallCell.Value = value
+				smallCell.input.value = value
+				this.excludeMissings(smallCell.parent,value)
+			//} catch (error) {
+				//console.log('Sudoku.edit error',smallCell,this)
+			//}
 		},
-		getRowandCol: function () {
+		getRowandCol: function () { //Добавлю в init
 			let Boardcount = this.Board.length //Формула для квадратной доски, нужно переписать для неклассических судоку
 			let res = {
 				Rows: [[], [], [], [], [], [], [], [], []],
@@ -1081,10 +1135,17 @@ function StartBoard(SudokuBoard, ButtonBoard, ColRow = 3) { //Заполняем
 			Way1: function (BigCell) { //Проставляет единственный Miss блока в свободную ячейку
 				let Sudoku = this.parent
 				for (let k = 0; k < BigCell.Childs.length; k++) {
+					
 					if (BigCell.Childs[k].Value < 1) {
-						Sudoku.edit(BigCell.Childs[k],BigCell.Missings[0]) //Новый способ
+						try {
+							Sudoku.edit(BigCell.Childs[k],BigCell.Missings[0]) //Новый способ
+							console.log(k)
+						} catch (error) {
+							console.log('here',BigCell.Childs[k],BigCell.Missings[0])
+						}
 						//Sudoku.whoInput(BigCell.Childs[k]).value = BigCell.Missings[0] //Устарел, заменён
 					}
+					//console.log(BigCell.Childs.length)
 				}
 			},
 			Way2: function () { //Проходит линии и проставляет числа, если в линии только одно место
@@ -1207,6 +1268,7 @@ function sudokuButtonEdit(Board, Sudoku) {
 	for (let i = 0; i < inputs.length; i++) {
 		let input = inputs[i] //Переменная для инпута обрабатываемого в цикле(для краткости)
 		input.removeAttribute('readonly') //убираем флаг "только чтение", теперь в инпут можно писать
+
 		input.addEventListener('click', function () { //При клике на инпут добавляет число из него обратно в Missings чтодбы его можно было переназначить
 			let Cell = Sudoku.whoCell(input) //[input.parentElement.getAttribute('ParrentRow')*input.parentElement.getAttribute('ParrentCol')-1]
 			if (input.value > 0) {
@@ -1215,6 +1277,7 @@ function sudokuButtonEdit(Board, Sudoku) {
 			}
 			console.log(Cell)
 		})
+
 		input.addEventListener('input', function () {
 			let Cell = Sudoku.whoCell(input) //[input.parentElement.getAttribute('ParrentRow')*input.parentElement.getAttribute('ParrentCol')-1]
 			//console.log(Cell)
@@ -1223,6 +1286,7 @@ function sudokuButtonEdit(Board, Sudoku) {
 			input.value = (Num.length > 1) ? Num.charAt(1) : Num.charAt(0) //Реплейсер по контролю вводимых чисел
 			//console.log(reg,Num,input.value) отладочный
 		})
+
 		input.addEventListener('blur', function () {
 			let Cell = Sudoku.whoCell(input)  //[input.parentElement.getAttribute('ParrentRow')*input.parentElement.getAttribute('ParrentCol')-1]
 			Sudoku.excludeMissings(Cell.Parrent, input.value) //Убирает число из Missings и тем самым фиксирует какие числа уже есть в большой ячейке
@@ -1242,18 +1306,42 @@ function sudokuButtonResolve(SudokuBoard, Sudoku) {
 	for (let i = 0; i < inputs.length; i++) {
 		let input = inputs[i]
 		input.setAttribute('readonly', '')
-		let Cell = Sudoku.whoCell(input) // Можно перемести внуть if как только свойство родителей будет исполнятся в самом объекте ('Даём детям знать кто их родители')
-		Cell.Child.parent = Cell.Parrent //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
+		 // Можно перемести внуть if как только свойство родителей будет исполнятся в самом объекте ('Даём детям знать кто их родители')
+		//Cell.Child.parent = Cell.Parrent //Даём детям знать кто их родители //С этим свойством объект больше не копируется из консоли
 		//console.log()
 		if (input.value > 0) {
-
+			let Cell = Sudoku.whoCell(input)
 			Sudoku.excludeMissings(Cell.Parrent, input.value)
 			Cell.Child.Initiable = true
 			Cell.Child.Value = +input.value
 			//console.log(Cell.Child,input.value) // отладочный
 		}
 	}
-	console.log(Sudoku.resolve())
+	let repeat = true
+	/*let Solve = async function () {
+		let r = new Promise((resolve, reject) => {
+			
+		})
+		r
+		return await Sudoku.resolve()
+	}
+	do {
+		let isSolution = Solve().then(console.log) //!here
+		//console.log(isSolution.t)
+		if (isSolution.succes == 0) {
+			if (isSolution.resolved == 9) {
+				console.log('Great!')
+				repeat = false
+			} else {
+				console.log('has no solution')
+				repeat = false
+			}
+		}
+		//console.log(repeat)
+	} while (false)*/
+	//console.log(Solve())
+	//console.log(Sudoku.clearBoard())
 	console.log(Sudoku.Board)
+	console.log(Sudoku.resolve())
 	//Sudoku.getRowandCol()
 }
